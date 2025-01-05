@@ -20,85 +20,46 @@ Queuing are the most frequently encountered problems in everyday life. For examp
 
 
 ## Experiment:
+![WhatsApp Image 2025-01-05 at 20 26 19_4e790e2d](https://github.com/user-attachments/assets/47d49d51-b18f-4b70-8636-7ecf775568a7)
+![WhatsApp Image 2025-01-05 at 20 26 26_407be440](https://github.com/user-attachments/assets/73c41373-bb82-4f5b-b396-0592152bcb9b)
 
 
 ## Program
+import math
 arr_time=float(input("Enter the mean inter arrival time of objects from Feeder (in secs): "))
-
-ser_time1=float(input("Enter the mean  inter service time of Lathe Machine 1 (in secs) :  "))
-
-ser_time2=float(input("Enter the mean  inter service time of Lathe Machine 2 (in secs) :  "))
-
-ser_time3=float(input("Enter the mean  inter service time of Lathe Machine 3 (in secs) :  "))
-
+ser_time=float(input("Enter the mean  inter service time of Lathe Machine (in secs) :  "))
 Robot_time=float(input("Enter the Additional time taken for the Robot (in secs) :  "))
-
+c=int(input("Number of service centre :  "))
 lam=1/arr_time
-
-mu1=1/(ser_time1+Robot_time)
-
-mu2=1/(ser_time2+Robot_time)
-
-mu3=1/(ser_time3+Robot_time)
-
-print("-----------------------------------------------------------------------")
-
-print("Series Queues with infinite capacity- Open Jackson Network")
-
-print("-----------------------------------------------------------------------")
-
-if (lam <  mu1) and (lam <  mu2) and (lam <  mu3):
-
-    Ls1=lam/(mu1-lam)
-
-    Ls2=lam/(mu2-lam)
-
-    Ls3=lam/(mu3-lam)
-
-    Ls=Ls1+Ls2+Ls3
-
-    Lq1=Ls1-lam/mu1
-
-    Lq2=Ls2-lam/mu2
-
-    Lq3=Ls3-lam/mu3
-
-    Wq1=Lq1/lam
-
-    Wq2=Lq2/lam
-
-    Wq3=Lq3/lam
-
-    Ws=Ls/(3*lam)
-
-    print("Average number of objects in the system S1 : %0.2f "%Ls1)
-
-    print("Average number of objects in the system S2 : %0.2f "%Ls2)
-
-    print("Average number of objects in the system S3 : %0.2f "%Ls3)
-
-    print("Average number of objects in the overall system    : %0.2f "%Ls)
-
-    print("Average number of objects in the conveyor S1  :  %0.2f "%Lq1)
-
-    print("Average number of objects in the conveyor S2  :  %0.2f "%Lq2)
-
-    print("Average number of objects in the conveyor S3  :  %0.2f "%Lq3)
-
-    print("Average waiting time of an object in the conveyor S1 : %0.2f secs"%Wq1)
-
-    print("Average waiting time of an object in the conveyor S2 : %0.2f secs"%Wq2)
-
-    print("Average waiting time of an object in the conveyor S3 : %0.2f secs"%Wq3)
-
+mu=1/(ser_time+Robot_time)
+print("--------------------------------------------------------------")
+print("Multiple Server with Infinite Capacity - (M/M/c):(oo/FIFO)")
+print("--------------------------------------------------------------")
+print("The mean arrival rate per second : %0.2f "%lam)
+print("The mean service rate per second : %0.2f "%mu)
+rho=lam/(c*mu)
+sum=(lam/mu)*c(1/(1-rho))/math.factorial(c)
+for i in range(0,c):
+    sum=sum+(lam/mu)**i/math.factorial(i)
+P0=1/sum
+if (rho<1):
+    Lq=(P0/math.factorial(c))(1/c)(lam/mu)(c+1)/(1-rho)**2
+    Ls=Lq+lam/mu
+    Ws=Ls/lam
+    Wq=Lq/lam
+    print("Average number of objects in the system : %0.2f "%Ls)
+    print("Average number of objects in the conveyor :  %0.2f "%Lq)
+    print("Average waiting time of an object in the system : %0.2f secs"%Ws)
+    print("Average waiting time of an object in the conveyor : %0.2f secs"%Wq)
+    print("Probability that the system is busy : %0.2f "%(rho))
+    print("Probability that the system is empty : %0.2f "%(1-rho))
 else:
-
     print("Warning! Objects Over flow will happen in the conveyor")
-
-print("----------------------------------------------------------------------")
+print("--------------------------------------------------------------")
 
 ## Output :
-![WhatsApp Image 2025-01-05 at 20 08 12_21be47d7](https://github.com/user-attachments/assets/92be8ee4-d38c-4edd-9057-c4c635b1fc61)
+![WhatsApp Image 2025-01-05 at 20 07 19_d3d07ba5](https://github.com/user-attachments/assets/fc225847-3f20-46f0-991a-d956d38c1bd9)
+
 
 ## Result : 
 Thus the average number of materials in the system and conveyor, waiting time of each material in the system and conveyor is found successfully.
